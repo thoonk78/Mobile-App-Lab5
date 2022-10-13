@@ -31,14 +31,14 @@ class _CluansWidget extends State<CluansWidget> {
   ///sort by answer
   void _sortAnswers() {
     setState(() {
-      roles.sort((a, b) => a.answer.compareTo(b.answer));
+      roles.sort((a, b) => a.answer.toLowerCase().compareTo(b.answer.toLowerCase()));
     });
   }
 
   ///sort by clues
   void _sortClues() {
     setState(() {
-      roles.sort((a, b) => a.clue.compareTo(b.clue));
+      roles.sort((a, b) => a.clue.toLowerCase().compareTo(b.clue.toLowerCase()));
     });
   }
 
