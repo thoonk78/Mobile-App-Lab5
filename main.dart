@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
             ],
           ),
           appBar: AppBar(title: const Center(child: Text('Cluans'))),
-          body: const CluansWidget(),
+          body: tabViews[selectedIndex],
         ));
   }
 }
