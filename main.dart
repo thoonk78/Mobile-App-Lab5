@@ -14,14 +14,41 @@ void main() {
   runApp(MaterialApp(title: 'Cluans', home: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  List<Widget> tabViews = const [CluansWidget(), CluansWidget()];
+  int selectedIndex = 0;
+  void _handleTap(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Center(child: Text('Cluans'))),
-      body: const CluansWidget(),
-    );
+    return DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: selectedIndex,
+            showUnselectedLabels: true,
+            onTap: _handleTap,
+            unselectedItemColor: Colors.black,
+            selectedItemColor: Colors.red,
+            backgroundColor: Colors.blue,
+            items: const [
+              BottomNavigationBarItem(label: 'list', icon: Icon(Icons.search)),
+              BottomNavigationBarItem(label: 'add', icon: Icon(Icons.list))
+            ],
+          ),
+          appBar: AppBar(title: const Center(child: Text('Cluans'))),
+          body: const CluansWidget(),
+        ));
   }
 }
