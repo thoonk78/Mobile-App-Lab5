@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
             showUnselectedLabels: true,
             onTap: _handleTap,
             unselectedItemColor: Colors.black,
-            selectedItemColor: Colors.red,
+            selectedItemColor: Colors.white,
             backgroundColor: Colors.blue,
             items: const [
               BottomNavigationBarItem(label: 'list', icon: Icon(Icons.search)),
