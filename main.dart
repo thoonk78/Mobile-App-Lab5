@@ -22,7 +22,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<Widget> tabViews = const [CluansWidget(), CluansWidget()];
+  List<Widget> tabViews = [CluansWidget(), CluansWidget()];
   int selectedIndex = 0;
   void _handleTap(int index) {
     setState(() {
