@@ -1,24 +1,22 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'AddCluansWidget.dart';
+import 'cluanRole.dart';
+
+import 'role.dart';
 
 ///Role is what element is what like answer the clue or the year
-class Role {
-  String answer;
-  String clue;
-  // ignore: prefer_typing_uninitialized_variables
-  var year;
-  Role({required this.answer, required this.clue, this.year});
-}
 
-class CluansWidget extends StatefulWidget {
-  const CluansWidget({Key? key}) : super(key: key);
 
-  @override
-  State<CluansWidget> createState() => _CluansWidget();
-}
+// class CluansWidget extends StatefulWidget {
+//   const CluansWidget({Key? key}) : super(key: key);
 
-class _CluansWidget extends State<CluansWidget> {
+//   @override
+//   State<CluansWidget> createState() => _CluansWidget();
+// }
+
+class CluansWidget extends StatelessWidget {
   List<Role> roles = [
     Role(answer: 'Berlin', clue: 'Captal of Germany', year: "10/7/2022"),
     Role(answer: 'Sky', clue: 'What is above you', year: "10/7/2022"),
@@ -30,16 +28,17 @@ class _CluansWidget extends State<CluansWidget> {
 
   ///sort by answer
   void _sortAnswers() {
-    setState(() {
-      roles.sort((a, b) => a.answer.toLowerCase().compareTo(b.answer.toLowerCase()));
-    });
+    
+      roles.sort((a, b) => a.answer.compareTo(b.answer));
+    
   }
 
   ///sort by clues
   void _sortClues() {
-    setState(() {
-      roles.sort((a, b) => a.clue.toLowerCase().compareTo(b.clue.toLowerCase()));
-    });
+    
+      roles.sort((a, b) => a.clue.compareTo(b.clue));
+      roles.add(Role(answer: 'Kanye west', clue: 'ye', year: '10/07/2022'));
+
   }
 
   ///builder
