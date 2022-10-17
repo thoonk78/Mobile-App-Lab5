@@ -2,44 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'AddCluansWidget.dart';
+import 'Clues.dart';
+import 'package:provider/provider.dart';
 import 'cluanRole.dart';
 
-import 'role.dart';
-
-///Role is what element is what like answer the clue or the year
-
-
-// class CluansWidget extends StatefulWidget {
-//   const CluansWidget({Key? key}) : super(key: key);
-
-//   @override
-//   State<CluansWidget> createState() => _CluansWidget();
-// }
-
 class CluansWidget extends StatelessWidget {
-  List<Role> roles = [
-    Role(answer: 'Berlin', clue: 'Captal of Germany', year: "10/7/2022"),
-    Role(answer: 'Sky', clue: 'What is above you', year: "10/7/2022"),
-    Role(answer: 'Fish', clue: 'What lives in water', year: "10/7/2022"),
-    Role(answer: 'Luna', clue: 'Name of the moon', year: "10/7/2022"),
-    Role(answer: 'Red', clue: 'Color of Blood', year: "10/7/2022"),
-    Role(answer: 'Sofia', clue: 'Capital of Bulgaria', year: "10/7/2022"),
-  ];
-
-  ///sort by answer
-  void _sortAnswers() {
-    
-      roles.sort((a, b) => a.answer.compareTo(b.answer));
-    
-  }
-
-  ///sort by clues
-  void _sortClues() {
-    
-      roles.sort((a, b) => a.clue.compareTo(b.clue));
-      roles.add(Role(answer: 'Kanye west', clue: 'ye', year: '10/07/2022'));
-
-  }
+  //sort by answer
 
   ///builder
   @override
@@ -50,14 +18,20 @@ class CluansWidget extends StatelessWidget {
 
           ///listView
           child: ListView.separated(
-        itemCount: roles.length,
+        itemCount: Provider.of<MyModel>(context, listen: false).numCluans(),
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
 
               ///setting the title subtitle and trailing
-              title: Text(roles[index].answer),
-              subtitle: Text(roles[index].clue),
-              trailing: Text(roles[index].year!));
+              title: Text(Provider.of<MyModel>(context, listen: false)
+                  .getCluan(at: index)
+                  .answer),
+              subtitle: Text(Provider.of<MyModel>(context, listen: false)
+                  .getCluan(at: index)
+                  .clue),
+              trailing: Text(Provider.of<MyModel>(context, listen: false)
+                  .getCluan(at: index)
+                  .year));
         },
 
         ///for the divider between each element
@@ -76,14 +50,14 @@ class CluansWidget extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(1, 1, 1, 10),
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-              onPressed: _sortClues,
+              onPressed: Provider.of<MyModel>(context).sortClues,
               child: Text('Sort by Clue')),
         ),
         Padding(
           padding: EdgeInsets.fromLTRB(1, 1, 1, 10),
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-              onPressed: _sortAnswers,
+              onPressed: Provider.of<MyModel>(context).sortAnswers,
               child: Text('Sort by Answer')),
         ),
       ])
