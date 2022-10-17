@@ -1,27 +1,9 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:lab4/classRole.dart';
 import 'package:provider/provider.dart';
 import 'cluanRole.dart';
-
-import 'role.dart';
-
-// class AddCluanWidget extends StatefulWidget {
-//   const AddCluanWidget({Key? key}) : super(key: key);
-
-//   @override
-//   State<AddCluanWidget> createState() => _AddCluanWidget();
-// }
-
-// class Role {
-//   String answer;
-//   String clue;
-//   // ignore: prefer_typing_uninitialized_variables
-//   var year;
-//   Role({required this.answer, required this.clue, this.year});
-// }
-
-// ignore: unused_element
 
 class AddCluanWidget extends StatelessWidget {
   TextEditingController myController = TextEditingController();
@@ -80,10 +62,10 @@ class AddCluanWidget extends StatelessWidget {
                     myController1.text != "" &&
                     myController2.text != "") {
                   Provider.of<MyModel>(context, listen: false).Add(
-                    roles: Role(
+                    cluan: Role(
                         answer: myController.text,
                         clue: myController1.text,
-                        year: myController2.text), cluan: null,
+                        year: myController2.text),
                   );
                 }
               },
@@ -114,3 +96,4 @@ class AddCluanWidget extends StatelessWidget {
     myController2.clear();
   }
 }
+
