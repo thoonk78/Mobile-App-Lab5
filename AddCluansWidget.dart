@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'cluanRole.dart';
 
 import 'role.dart';
@@ -21,65 +22,8 @@ import 'role.dart';
 // }
 
 // ignore: unused_element
-class Cluans {
-  // ignore: unused_field
-  final List<Role> roles = [
-    Role(answer: 'Berlin', clue: 'Captal of Germany', year: "10/7/2022"),
-    Role(answer: 'Sky', clue: 'What is above you', year: "10/7/2022"),
-    Role(answer: 'Fish', clue: 'What lives in water', year: "10/7/2022"),
-    Role(answer: 'Luna', clue: 'Name of the moon', year: "10/7/2022"),
-    Role(answer: 'Red', clue: 'Color of Blood', year: "10/7/2022"),
-    Role(answer: 'Sofia', clue: 'Capital of Bulgaria', year: "10/7/2022"),
-  ];
-
-  Role? getCluan({required int at}) {
-    Role? cluan = roles[at];
-    int i = at;
-    // for (i; i < _roles.length; i++) {
-    //   cluan = _roles[i];
-    // }
-    return cluan;
-  }
-
-  bool Add({required Cluans cluan}) {
-    if (cluan != null) {
-      return true;
-    }
-    return false;
-  }
-}
 
 class AddCluanWidget extends StatelessWidget {
-  final List<Role> roles = [
-    Role(answer: 'Berlin', clue: 'Captal of Germany', year: "10/7/2022"),
-    Role(answer: 'Sky', clue: 'What is above you', year: "10/7/2022"),
-    Role(answer: 'Fish', clue: 'What lives in water', year: "10/7/2022"),
-    Role(answer: 'Luna', clue: 'Name of the moon', year: "10/7/2022"),
-    Role(answer: 'Red', clue: 'Color of Blood', year: "10/7/2022"),
-    Role(answer: 'Sofia', clue: 'Capital of Bulgaria', year: "10/7/2022"),
-  ];
-  void addCluan() {
-    //
-    var a;
-    print('hello world');
-    print(a.getCluan(0));
-    //});
-  }
-
-  int numCluans() {
-    return 0;
-  }
-
-  void clear() {
-    myController.clear();
-    myController1.clear();
-    myController2.clear();
-  }
-
-  void testAdd() {
-    roles.add(Role(answer: 'Kanye west', clue: 'ye', year: '10/07/2022'));
-  }
-
   TextEditingController myController = TextEditingController();
   TextEditingController myController1 = TextEditingController();
   TextEditingController myController2 = TextEditingController();
@@ -131,14 +75,25 @@ class AddCluanWidget extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(1, 1, 1, 10),
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-              onPressed: addCluan,
+              onPressed: () {
+                if (myController.text != "" &&
+                    myController1.text != "" &&
+                    myController2.text != "") {
+                  Provider.of<MyModel>(context, listen: false).Add(
+                    roles: Role(
+                        answer: myController.text,
+                        clue: myController1.text,
+                        year: myController2.text), cluan: null,
+                  );
+                }
+              },
               child: Text('Add')),
         ),
         Padding(
           padding: EdgeInsets.fromLTRB(1, 1, 1, 10),
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-              onPressed: testAdd,
+              onPressed: null,
               child: Text('Test Add')),
         ),
 
@@ -151,5 +106,11 @@ class AddCluanWidget extends StatelessWidget {
         ),
       ])
     ]));
+  }
+
+  void clear() {
+    myController.clear();
+    myController1.clear();
+    myController2.clear();
   }
 }
