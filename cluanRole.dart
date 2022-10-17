@@ -16,11 +16,10 @@ class MyModel extends ChangeNotifier {
     return roles[at];
   }
 
-  bool Add({required MyModel cluan}) {
-    if (cluan != null) {
-      return true;
-    }
-    return false;
+  bool Add({required Role cluan}) {
+    roles.add(cluan);
+    notifyListeners();
+    return true;
   }
 
   int numCluans() {
@@ -39,4 +38,3 @@ class MyModel extends ChangeNotifier {
     notifyListeners();
   }
 }
-
