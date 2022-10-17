@@ -56,3 +56,27 @@ class _MyAppState extends State<MyApp> {
         ));
   }
 }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: selectedIndex,
+            showUnselectedLabels: true,
+            onTap: _handleTap,
+            unselectedItemColor: Colors.black,
+            selectedItemColor: Colors.white,
+            backgroundColor: Colors.blue,
+            items: const [
+              BottomNavigationBarItem(label: 'list', icon: Icon(Icons.search)),
+              BottomNavigationBarItem(label: 'add', icon: Icon(Icons.list))
+            ],
+          ),
+          appBar: AppBar(title: const Center(child: Text('Cluans'))),
+          body: tabViews[selectedIndex],
+        ));
+  }
+}
