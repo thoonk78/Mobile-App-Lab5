@@ -5,11 +5,11 @@ class Role {
   var year;
   Role({required this.answer, required this.clue, this.year});
   String getAnswer() {
-    return answer;
+    return answer.toLowerCase();
   }
 
   String getclue() {
-    return clue;
+    return clue.toLowerCase();
   }
 
   String getDate() {
