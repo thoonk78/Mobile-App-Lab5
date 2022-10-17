@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'AddCluansWidget.dart';
 import 'Clues.dart';
+import 'package:provider/provider.dart';
+
+import 'cluanRole.dart';
 
 /*
 Name: Michael Meisenburg
@@ -10,8 +13,9 @@ Bugs: none that I found
 Reflection: This lab went well I think.
 */
 void main() {
-  // ignore: prefer_const_constructors
-  runApp(MaterialApp(title: 'Cluans', home: MyApp()));
+  runApp(ChangeNotifierProvider(
+      create: (context) => MyModel(),
+      child: const MaterialApp(title: 'My App', home: MyApp())));
 }
 
 class MyApp extends StatefulWidget {
@@ -22,7 +26,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<Widget> tabViews = [CluansWidget(), CluansWidget()];
+  List<Widget> tabViews = [CluansWidget(), AddCluanWidget()];
   int selectedIndex = 0;
   void _handleTap(int index) {
     setState(() {
