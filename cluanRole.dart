@@ -30,10 +30,13 @@ class MyModel extends ChangeNotifier {
   //sort by answer
   void sortAnswers() {
     roles.sort((a, b) => a.answer.compareTo(b.answer));
+    notifyListeners();
   }
 
   ///sort by clues
   void sortClues() {
     roles.sort((a, b) => a.clue.compareTo(b.clue));
+    notifyListeners();
   }
 }
+
