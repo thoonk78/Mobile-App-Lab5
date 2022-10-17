@@ -1,82 +1,95 @@
-import 'package:flutter/material.dart';
-import 'AddCluansWidget.dart';
-import 'Clues.dart';
-import 'package:provider/provider.dart';
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:flutter/material.dart';
+import 'package:lab4/classRole.dart';
+import 'package:provider/provider.dart';
 import 'cluanRole.dart';
 
-/*
-Name: Michael Meisenburg
-Date: 10/8/2022
-Description:app that makes a listview of answers and clues that orders them based on answer and clues
-Bugs: none that I found
-Reflection: This lab went well I think.
-*/
-void main() {
-  runApp(ChangeNotifierProvider(
-      create: (context) => MyModel(),
-      child: const MaterialApp(title: 'My App', home: MyApp())));
-}
+class AddCluanWidget extends StatelessWidget {
+  TextEditingController myController = TextEditingController();
+  TextEditingController myController1 = TextEditingController();
+  TextEditingController myController2 = TextEditingController();
+  final TextStyle preferredTextStyle = TextStyle(fontSize: 24.0);
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  List<Widget> tabViews = [CluansWidget(), AddCluanWidget()];
-  int selectedIndex = 0;
-  void _handleTap(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
-
+  ///builder
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: selectedIndex,
-            showUnselectedLabels: true,
-            onTap: _handleTap,
-            unselectedItemColor: Colors.black,
-            selectedItemColor: Colors.white,
-            backgroundColor: Colors.blue,
-            items: const [
-              BottomNavigationBarItem(label: 'list', icon: Icon(Icons.search)),
-              BottomNavigationBarItem(label: 'add', icon: Icon(Icons.list))
-            ],
-          ),
-          appBar: AppBar(title: const Center(child: Text('Cluans'))),
-          body: tabViews[selectedIndex],
-        ));
+    ///column for all the elements like the list and the elevated buttons
+    return Scaffold(
+        body: Column(children: [
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextField(
+          onChanged: null,
+          style: preferredTextStyle,
+          decoration: InputDecoration(hintText: 'Answer'),
+          controller: myController,
+        ),
+      ),
+
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextField(
+          onChanged: null,
+          style: preferredTextStyle,
+          decoration: InputDecoration(hintText: 'Clue'),
+          controller: myController1,
+        ),
+      ),
+
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextField(
+          onChanged: null,
+          style: preferredTextStyle,
+          decoration: InputDecoration(hintText: 'Date'),
+          controller: myController2,
+        ),
+      ),
+
+      ///Row for the elevated buttons
+      Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        ///padding to prevent the buttons from being stuck to the bottom of the screen
+        Padding(
+          padding: EdgeInsets.fromLTRB(1, 1, 1, 10),
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+              onPressed: () {
+                if (myController.text != "" &&
+                    myController1.text != "" &&
+                    myController2.text != "") {
+                  Provider.of<MyModel>(context, listen: false).Add(
+                    cluan: Role(
+                        answer: myController.text,
+                        clue: myController1.text,
+                        year: myController2.text),
+                  );
+                }
+              },
+              child: Text('Add')),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(1, 1, 1, 10),
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+              onPressed: null,
+              child: Text('Test Add')),
+        ),
+
+        Padding(
+          padding: EdgeInsets.fromLTRB(1, 1, 1, 10),
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+              onPressed: clear,
+              child: Text('Clear')),
+        ),
+      ])
+    ]));
   }
-}
 
-
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: selectedIndex,
-            showUnselectedLabels: true,
-            onTap: _handleTap,
-            unselectedItemColor: Colors.black,
-            selectedItemColor: Colors.white,
-            backgroundColor: Colors.blue,
-            items: const [
-              BottomNavigationBarItem(label: 'list', icon: Icon(Icons.search)),
-              BottomNavigationBarItem(label: 'add', icon: Icon(Icons.list))
-            ],
-          ),
-          appBar: AppBar(title: const Center(child: Text('Cluans'))),
-          body: tabViews[selectedIndex],
-        ));
+  void clear() {
+    myController.clear();
+    myController1.clear();
+    myController2.clear();
   }
 }
